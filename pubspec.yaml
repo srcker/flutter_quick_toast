@@ -1,5 +1,5 @@
 name: quick_toast
-description: "A new Flutter package project."
+description: A clean and lightweight loading/toast widget for Flutter, Easy to use without context, Support iOS、Android
 version: 1.0.1
 homepage: "https://github.com/srcker/flutter_quick_toast"
 
