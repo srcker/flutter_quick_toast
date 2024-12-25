@@ -22,6 +22,9 @@ enum QuickToastAnimationStyle { opacity, offset, scale, custom }
 /// 遮罩类型枚举类型
 enum QuickToastMaskType { none, clear, black, custom }
 
+/// 遮罩类型枚举类型
+enum QuickToastType { toast, widget }
+
 /// 加载状态枚举类型
 enum QuickToastStatus { show, dismiss }
 
@@ -62,9 +65,6 @@ class QuickToast {
     /// 状态文本的字体大小，默认 15.0
     late double fontSize;
 
-    /// 进度指示器的宽度，默认 2.0
-    late double progressWidth;
-
     /// 加载指示器的线条宽度，默认 4.0，仅用于 [ring] 和 [dualRing] 类型
     late double lineWidth;
 
@@ -73,6 +73,9 @@ class QuickToast {
 
     /// 加载动画的持续时间，默认 200 毫秒
     late Duration animationDuration;
+
+    /// 弹窗类型，默认为 [QuickToastType.toast]
+    QuickToastType? type;
 
     /// 自定义加载动画，默认值为 null
     QuickToastAnimation? customAnimation;
@@ -152,11 +155,10 @@ class QuickToast {
 		toastPosition = QuickToastToastPosition.center;
 		animationStyle = QuickToastAnimationStyle.opacity;
 		textAlign = TextAlign.center;
-		indicatorSize = 40.0;
+		indicatorSize = 35.0;
 		radius = 5.0;
-		fontSize = 15.0;
-		progressWidth = 2.0;
-		lineWidth = 4.0;
+		fontSize = 14.0;
+		lineWidth = 3.0;
 		displayDuration = const Duration(milliseconds: 2000);
 		animationDuration = const Duration(milliseconds: 200);
 		textPadding = const EdgeInsets.only(bottom: 10.0);
@@ -184,8 +186,8 @@ class QuickToast {
 
 	/// 显示加载中提示框，支持状态、指示器和遮罩类型的自定义
 	static Future<void> show({
-		String? status,
 		required Widget widget,
+		String? status,
 		QuickToastMaskType? maskType,
 		bool? dismissOnTap,
 	}) {
@@ -194,7 +196,26 @@ class QuickToast {
 			status: status,
 			maskType: maskType,
 			dismissOnTap: dismissOnTap,
-			w: widget
+			w: SizedBox(
+				width: QuickToastTheme.indicatorSize,
+				height: QuickToastTheme.indicatorSize,
+				child: widget,
+			),
+		);
+	}
+
+	/// 显示加载中提示框，支持状态、指示器和遮罩类型的自定义
+	static Future<void> showWidget({
+		required Widget widget,
+		QuickToastMaskType? maskType,
+		bool? dismissOnTap,
+	}) {
+		// 如果未提供指示器，则使用默认的加载指示器
+		return _instance._show(
+			maskType: maskType,
+			dismissOnTap: dismissOnTap,
+			type: QuickToastType.widget,
+			w: widget,
 		);
 	}
 
@@ -210,10 +231,10 @@ class QuickToast {
 			maskType: maskType,
 			dismissOnTap: dismissOnTap,
 			w: SizedBox(
-				width: 16,
-				height: 16,
+				width: QuickToastTheme.indicatorSize,
+				height: QuickToastTheme.indicatorSize,
 				child: CircularProgressIndicator(
-					strokeWidth: 2,
+					strokeWidth: QuickToastTheme.lineWidth,
 					color: QuickToastTheme.indicatorColor,
 					backgroundColor: QuickToastTheme.backgroundColor,
 				),
@@ -384,6 +405,8 @@ class QuickToast {
 		Duration? duration, // 显示时长
 		QuickToastMaskType? maskType, // 遮罩类型
 		bool? dismissOnTap, // 是否点击遮罩关闭
+		EdgeInsets? contentPadding, // 内容内边距
+		QuickToastType? type,
 		QuickToastToastPosition? toastPosition, // 提示框位置
 	}) async {
 		// 确保已初始化 overlayEntry
@@ -408,7 +431,6 @@ class QuickToast {
 		}
 
 		// 设置默认提示框位置
-		toastPosition ??= QuickToastToastPosition.center;
 		bool animation = _w == null; // 是否需要动画
 		_progressKey = null; // 重置进度组件键
 		if (_key != null) await dismiss(animation: false); // 如果已有提示框，先关闭
@@ -421,8 +443,9 @@ class QuickToast {
 			status: status,
 			indicator: w,
 			animation: animation,
-			toastPosition: toastPosition,
+			toastPosition: toastPosition??QuickToastToastPosition.center,
 			maskType: maskType,
+			type: type ?? QuickToastType.toast,
 			dismissOnTap: dismissOnTap,
 			completer: completer,
 		);

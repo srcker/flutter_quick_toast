@@ -1,5 +1,3 @@
-import 'dart:math' as math;
-
 import 'package:flutter/material.dart';
 
 import '../theme.dart';
@@ -23,7 +21,7 @@ class QuickToastProgressState extends State<QuickToastProgress> {
     @override
     void initState() {
         super.initState();
-        _value = widget.value; // 初始化进度值
+        _value = widget.value.clamp(0.0, 1.0); // 初始化并确保进度值在有效范围内
     }
 
     @override
@@ -42,86 +40,12 @@ class QuickToastProgressState extends State<QuickToastProgress> {
         return SizedBox(
             width: QuickToastTheme.indicatorSize,
             height: QuickToastTheme.indicatorSize,
-            child: _CircleProgress(
-                value: _value,
-                color: QuickToastTheme.progressColor,
-                width: QuickToastTheme.progressWidth,
+            child: CircularProgressIndicator(
+                value: _value, // 绑定进度值
+                backgroundColor: QuickToastTheme.backgroundColor,// 设置背景色
+                color: QuickToastTheme.progressColor, // 设置颜色
+                strokeWidth: QuickToastTheme.lineWidth, // 设置线宽
             ),
         );
-    }
-}
-
-class _CircleProgress extends ProgressIndicator {
-    @override
-	final double value;
-
-    final double width;
-	
-    @override
-	final Color color;
-
-    const _CircleProgress({
-        required this.value,
-        required this.width,
-        required this.color,
-    });
-
-    @override
-    __CircleProgressState createState() => __CircleProgressState();
-}
-
-class __CircleProgressState extends State<_CircleProgress> {
-    @override
-    void initState() {
-        super.initState();
-    }
-
-    @override
-    void dispose() {
-        super.dispose();
-    }
-
-    @override
-    Widget build(BuildContext context) {
-        return CustomPaint(
-            painter: _CirclePainter(
-                color: widget.color,
-                value: widget.value,
-                width: widget.width,
-            ),
-        );
-    }
-}
-
-class _CirclePainter extends CustomPainter {
-    final Color color;
-    final double value;
-    final double width;
-
-    _CirclePainter({
-        required this.color,
-        required this.value,
-        required this.width,
-    });
-
-    @override
-    void paint(Canvas canvas, Size size) {
-        final paint = Paint()
-            ..color = color
-            ..strokeWidth = width
-            ..style = PaintingStyle.stroke
-            ..strokeCap = StrokeCap.round;
-        canvas.drawArc(
-            Offset.zero & size,
-            -math.pi / 2,
-            math.pi * 2 * value,
-            false,
-            paint,
-        );
-    }
-
-    @override
-    bool shouldRepaint(_CirclePainter oldDelegate) {
-        return value != oldDelegate.value;
     }
 }

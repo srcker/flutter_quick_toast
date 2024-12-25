@@ -9,17 +9,27 @@ import '../quick_toast.dart';
 T? _ambiguate<T>(T? value) => value;
 
 class QuickToastContainer extends StatefulWidget {
+    // 指示器组件
     final Widget? indicator;
+    // 显示的状态文本
     final String? status;
+    // 点击时是否自动消失
     final bool? dismissOnTap;
+    // 提示框的位置
     final QuickToastToastPosition? toastPosition;
+    // 提示框的类型
+    final QuickToastType? type;
+    // 遮罩的类型
     final QuickToastMaskType? maskType;
+    // 完成器，用于完成异步操作
     final Completer<void>? completer;
+    // 是否启用动画效果
     final bool animation;
 
     const QuickToastContainer({
         super.key,
         this.indicator,
+        this.type,
         this.status,
         this.dismissOnTap,
         this.toastPosition,
@@ -28,6 +38,7 @@ class QuickToastContainer extends StatefulWidget {
         this.animation = true,
     });
 
+    // 创建对应的 State 对象
     @override
     QuickToastContainerState createState() => QuickToastContainerState();
 }
@@ -47,14 +58,21 @@ class QuickToastContainerState extends State<QuickToastContainer> with SingleTic
         super.initState();
         if (!mounted) return;
         _status = widget.status;
-        _alignment = _getAlignment(); // 获取对齐方式
-        _dismissOnTap = _getDismissOnTap(); // 获取是否在点击时关闭
-        _ignoring = _getIgnoring(); // 获取是否忽略点击事件
-        _maskColor = _getMaskColor(); // 获取遮罩颜色
-        _animationController = AnimationController(
-            vsync: this,
-            duration: QuickToastTheme.animationDuration,
-        )..addStatusListener(_onAnimationStatusChanged); // 添加动画状态监听器
+
+         // 获取对齐方式
+        _alignment = _getAlignment();
+
+         // 获取是否在点击时关闭
+        _dismissOnTap = _getDismissOnTap();
+
+         // 获取是否忽略点击事件
+        _ignoring = _getIgnoring();
+
+         // 获取遮罩颜色
+        _maskColor = _getMaskColor();
+
+         // 添加动画状态监听器
+        _animationController = AnimationController(vsync: this, duration: QuickToastTheme.animationDuration)..addStatusListener(_onAnimationStatusChanged);
         show(widget.animation);
     }
 
@@ -161,10 +179,7 @@ class QuickToastContainerState extends State<QuickToastContainer> with SingleTic
                 AnimatedBuilder(
                     animation: _animationController,
                     builder: (context, child) => QuickToastTheme.loadingAnimation.buildWidget(
-                        _Indicator(
-                            status: _status,
-                            indicator: widget.indicator,
-                        ),
+                        widget.type == QuickToastType.toast ? _Indicator(indicator: widget.indicator, status: _status) : widget.indicator!,
                         _animationController,
                         _alignment,
                     ),
@@ -182,6 +197,8 @@ class QuickToastContainerState extends State<QuickToastContainer> with SingleTic
         );
     }
 }
+
+
 
 class _Indicator extends StatelessWidget {
     final Widget? indicator;
