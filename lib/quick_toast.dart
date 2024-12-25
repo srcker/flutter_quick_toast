@@ -1,7 +1,5 @@
 library quick_toast;
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+export 'src/quick_toast.dart';
+export 'src/widgets/loading.dart';
+export 'src/animations/animation.dart';

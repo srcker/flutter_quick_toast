@@ -1,3 +1,3 @@
-## 0.0.1
+## [1.0.1] - 2024.12.23
 
-* TODO: Describe initial release.
+* 🎉 It's support flutter 3.0 and previous version now 

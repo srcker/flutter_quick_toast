@@ -1,7 +1,7 @@
 name: quick_toast
 description: "A new Flutter package project."
 version: 1.0.1
-homepage: "www.srcker.com"
+homepage: "https://github.com/srcker/flutter_quick_toast"
 
 environment:
   sdk: ^3.5.4
