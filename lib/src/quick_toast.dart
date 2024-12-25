@@ -116,11 +116,19 @@ class QuickToast {
     /// 信息组件
     Widget? infoWidget;
 
-    Widget? _w;
+	/// 用于存储 Toast 的 Widget
+    Widget? _w; 
 
-    QuickToastOverlayEntry? overlayEntry;
+	/// Toast 的 OverlayEntry 实例
+    QuickToastOverlayEntry? overlayEntry; 
+
+	/// 快速 Toast 容器的 GlobalKey
     GlobalKey<QuickToastContainerState>? _key;
-    GlobalKey<QuickToastProgressState>? _progressKey;
+
+	/// 快速 Toast 进度条的 GlobalKey
+    GlobalKey<QuickToastProgressState>? _progressKey; 
+
+	/// 用于控制 Toast 显示时长的计时器
     Timer? _timer;
 
     /// 获取当前显示的 Widget
@@ -131,7 +139,6 @@ class QuickToast {
 
     /// 获取进度容器的 Key
     GlobalKey<QuickToastProgressState>? get progressKey => _progressKey;
-
     final List<QuickToastStatusCallback> _statusCallbacks = <QuickToastStatusCallback>[];
 
     /// 单例模式的工厂构造函数
