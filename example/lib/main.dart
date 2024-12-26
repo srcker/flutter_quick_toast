@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quick_toast/quick_toast.dart';
 
 void main() {
   runApp(const MyApp());
@@ -31,7 +32,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'QuickToast Demo Home Page'),
+      builder: QuickToast.init(),
     );
   }
 }
@@ -55,18 +57,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -90,36 +81,84 @@ class _MyHomePageState extends State<MyHomePage> {
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
         child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+
+            ElevatedButton(
+              onPressed: () => QuickToast.showToast("Hello, world!"),
+              child: const Text("showToast"),
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+
+            ElevatedButton(
+              onPressed: () => QuickToast.showError("Hello, world!"),
+              child: const Text("showError"),
             ),
+
+            ElevatedButton(
+              onPressed: () => QuickToast.showSuccess("Hello, world!"),
+              child: const Text("showSuccess"),
+            ),
+
+            ElevatedButton(
+              onPressed: () {
+                QuickToast.showLoading(status: "Loading...");
+                Future.delayed(const Duration(seconds: 2)).then((value) {
+                  QuickToast.dismiss();
+                });
+              },
+              child: const Text("showLoading"),
+            ),
+
+            ElevatedButton(
+              onPressed: () async {
+                  const durations = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95];
+                  QuickToast.showProgress(durations.first, status: "Uploading...");
+
+                  for (int i = 1; i < durations.length; i++) {
+                      await Future.delayed(const Duration(milliseconds: 500));
+                      QuickToast.showProgress(durations[i], status: "Uploading...");
+                  }
+
+                  await Future.delayed(const Duration(milliseconds: 800));
+                  QuickToast.dismiss();
+              },
+              child: const Text("showProgress"),
+            ),
+
+
+            ElevatedButton(
+              onPressed: () => QuickToast.showInfo("Hello, world!"),
+              child: const Text("showInfo"),
+            ),
+
+            ElevatedButton(
+              onPressed: () => QuickToast.show(status: "Danger!!!!", widget: const Icon(Icons.report_problem, color: Colors.amber, size: 40,)),
+              child: const Text("show widget"),
+            ),
+    
+            ElevatedButton(
+              onPressed: () => QuickToast.showWidget(
+                  widget: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Container(
+                        height: 200,
+                        color: Colors.red,
+                      )
+                    ],
+                  )
+                ),
+              child: const Text("show widget"),
+            ),
+
+            ElevatedButton(
+              onPressed: () => QuickToast.dismiss(),
+              child: const Text("dismiss"),
+            ),
+
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),// This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }

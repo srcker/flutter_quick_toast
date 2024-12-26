@@ -22,7 +22,7 @@ import 'package:quick_toast/quick_toast.dart';
 
 ## 如何使用
 
-首先, 在`MaterialApp`/`CupertinoApp`中初始化`FlutterQuickToast`:
+首先, 在`MaterialApp`/`CupertinoApp`中初始化`QuickToast`:
 
 ```dart
 class MyApp extends StatelessWidget {
@@ -54,6 +54,10 @@ QuickToast.showError('Failed with Error');
 QuickToast.showInfo('Useful Information.');
 
 QuickToast.showToast('Toast');
+
+QuickToast.showWidget(widget: Text('Custom Widget'));
+
+QuickToast.show(status: 'danger.',widget: const Icon(Icons.report_problem));
 
 QuickToast.dismiss();
 ```
@@ -184,11 +188,8 @@ QuickToast.instance
   ..customAnimation = CustomAnimation();
 ```
 
-更多的指示器类型可查看 👉 [flutter_spinkit showcase](https://github.com/jogboms/flutter_spinkit#-showcase)
+更多的example可查看 👉 [flutter_quick_toast example](https://github.com/srcker/flutter_quick_toast/tree/main/example)
 
-## 自定义动画
-
-例子: 👉 [Custom Animation](https://github.com/nslogx/flutter_QuickToast/blob/develop/example/lib/custom_animation.dart)
 
 ## 更新日志
 
@@ -200,8 +201,6 @@ QuickToast.instance
 
 ## ❤️❤️❤️
 
-感谢 [flutter_QuickToast](https://github.com/nslogx/flutter_QuickToast) ❤️
+感谢 [flutter_easyloading](https://github.com/nslogx/flutter_easyloading) ❤️
 
 感谢 [JetBrains Open Source](https://www.jetbrains.com/community/opensource/#support) 提供支持
-
-[<img src="https://raw.githubusercontent.com/nslogx/flutter_QuickToast/master/images/jetbrains.png" width=200 height=112/>](https://www.jetbrains.com/?from=FlutterQuickToast)

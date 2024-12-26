@@ -1,10 +1,10 @@
 name: quick_toast
 description: A clean and lightweight loading/toast widget for Flutter, Easy to use without context, Support iOS、Android
-version: 1.0.3
+version: 1.1.0
 homepage: "https://github.com/srcker/flutter_quick_toast"
 
 environment:
-  sdk: ^3.5.4
+  sdk: ^3.2.0
   flutter: ">=1.17.0"
 
 dependencies:
