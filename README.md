@@ -1,28 +1,30 @@
 # Flutter QuickToast
+> A Flutter APP development plugin that is implemented purely in Flutter and allows you to easily call the toast and loading functions without the need for context.
 
 
-## 在线预览
+[![Pub Version](https://img.shields.io/pub/v/quick_toast)](https://pub.dev/packages/quick_toast)
+[![GitHub License](https://img.shields.io/github/license/srcker/flutter_quick_toast)](https://github.com/srcker/flutter_quick_toast)
 
-👉 [https://github.com/srcker/flutter_quick_toast](https://github.com/srcker/flutter_quick_toast/#/)
+English | [简体中文](./README.zh_CN.md)
 
-## 安装
+## Installation
 
-将以下代码添加到您项目中的 `pubspec.yaml` 文件:
+Add the following code to the `pubspec.yaml` file in your project:
 
 ```yaml
 dependencies:
   quick_toast: ^latest
 ```
 
-## 导入
+## Import
 
 ```dart
 import 'package:quick_toast/quick_toast.dart';
 ```
 
-## 如何使用
+## How to Use
 
-首先, 在`MaterialApp`/`CupertinoApp`中初始化`QuickToast`:
+First, initialize `QuickToast` in your `MaterialApp`/`CupertinoApp`:
 
 ```dart
 class MyApp extends StatelessWidget {
@@ -40,7 +42,7 @@ class MyApp extends StatelessWidget {
 }
 ```
 
-然后, 请尽情使用吧:
+Then, feel free to use it:
 
 ```dart
 QuickToast.showLoading(status: 'loading...');
@@ -57,12 +59,12 @@ QuickToast.showToast('Toast');
 
 QuickToast.showWidget(widget: Text('Custom Widget'));
 
-QuickToast.show(status: 'danger.',widget: const Icon(Icons.report_problem));
+QuickToast.show(status: 'danger.', widget: const Icon(Icons.report_problem));
 
 QuickToast.dismiss();
 ```
 
-添加 Loading 状态回调
+Add a Loading status callback
 
 ```dart
 QuickToast.addStatusCallback((status) {
@@ -70,7 +72,7 @@ QuickToast.addStatusCallback((status) {
 });
 ```
 
-移除 Loading 状态回调
+Remove a Loading status callback
 
 ```dart
 QuickToast.removeCallback(statusCallback);
@@ -78,98 +80,98 @@ QuickToast.removeCallback(statusCallback);
 QuickToast.removeAllCallbacks();
 ```
 
-## 自定义
+## Customization
 
-❗️**注意:**
+❗️**Note:**
 
-- **`textColor`、`indicatorColor`、`progressColor`、`backgroundColor` 仅对 `QuickToastStyle.custom`有效。**
+- **`textColor`, `indicatorColor`, `progressColor`, `backgroundColor` are only valid for `QuickToastStyle.custom`.**
 
-- **`maskColor` 仅对 `QuickToastMaskType.custom`有效。**
+- **`maskColor` is only valid for `QuickToastMaskType.custom`.**
 
 ```dart
-/// loading的样式, 默认[QuickToastStyle.dark].
+/// The style of the loading, default [QuickToastStyle.dark].
 QuickToastStyle loadingStyle;
 
-/// loading的遮罩类型, 默认[QuickToastMaskType.none].
+/// The mask type of the loading, default [QuickToastMaskType.none].
 QuickToastMaskType maskType;
 
-/// toast的位置, 默认 [QuickToastToastPosition.center].
+/// The position of the toast, default [QuickToastToastPosition.center].
 QuickToastToastPosition toastPosition;
 
-/// 动画类型, 默认 [QuickToastAnimationStyle.opacity].
+/// The animation style, default [QuickToastAnimationStyle.opacity].
 QuickToastAnimationStyle animationStyle;
 
-/// 自定义动画, 默认 null.
+/// Custom animation, default null.
 QuickToastAnimation customAnimation;
 
-/// 文本的对齐方式 , 默认[TextAlign.center].
+/// The alignment of the text, default [TextAlign.center].
 TextAlign textAlign;
 
-/// 文本的样式 , 默认 null.
+/// The style of the text, default null.
 TextStyle textStyle;
 
-/// loading内容区域的内边距.
+/// The padding of the content area in loading.
 EdgeInsets contentPadding;
 
-/// 文本的内边距.
+/// The padding of the text.
 EdgeInsets textPadding;
 
-/// 指示器的大小, 默认40.0.
+/// The size of the indicator, default 40.0.
 double indicatorSize;
 
-/// loading的圆角大小, 默认5.0.
+/// The radius of the loading, default 5.0.
 double radius;
 
-/// 文本大小, 默认15.0.
+/// The size of the font, default 15.0.
 double fontSize;
 
-/// 进度条指示器的宽度, 默认2.0.
+/// The width of the progress bar indicator, default 2.0.
 double progressWidth;
 
-/// 指示器的宽度, 默认4.0, 仅对[QuickToastIndicatorType.ring, QuickToastIndicatorType.dualRing]有效.
+/// The width of the indicator, default 4.0, only valid for [QuickToastIndicatorType.ring, QuickToastIndicatorType.dualRing].
 double lineWidth;
 
-/// [showSuccess] [showError] [showInfo]的展示时间, 默认2000ms.
+/// The display duration of [showSuccess], [showError], [showInfo], default 2000ms.
 Duration displayDuration;
 
-/// 动画时间, 默认200ms.
+/// The duration of the animation, default 200ms.
 Duration animationDuration;
 
-/// 文本的颜色, 仅对[QuickToastStyle.custom]有效.
+/// The color of the text, only valid for [QuickToastStyle.custom].
 Color textColor;
 
-/// 指示器的颜色, 仅对[QuickToastStyle.custom]有效.
+/// The color of the indicator, only valid for [QuickToastStyle.custom].
 Color indicatorColor;
 
-/// 进度条指示器的颜色, 仅对[QuickToastStyle.custom]有效.
+/// The color of the progress bar indicator, only valid for [QuickToastStyle.custom].
 Color progressColor;
 
-/// loading的背景色, 仅对[QuickToastStyle.custom]有效.
+/// The background color of the loading, only valid for [QuickToastStyle.custom].
 Color backgroundColor;
 
-/// 遮罩的背景色, 仅对[QuickToastMaskType.custom]有效.
+/// The background color of the mask, only valid for [QuickToastMaskType.custom].
 Color maskColor;
 
-/// 当loading展示的时候，是否允许用户操作.
+/// Whether to allow user interactions when loading is displayed.
 bool userInteractions;
 
-/// 点击背景是否关闭.
+/// Whether to dismiss on tap.
 bool dismissOnTap;
 
-/// 指示器自定义组件
+/// Custom indicator widget
 Widget indicatorWidget;
 
-/// 展示成功状态的自定义组件
+/// Custom widget for showing success status
 Widget successWidget;
 
-/// 展示失败状态的自定义组件
+/// Custom widget for showing error status
 Widget errorWidget;
 
-/// 展示信息状态的自定义组件
+/// Custom widget for showing info status
 Widget infoWidget;
 ```
 
-因为 `QuickToast` 是一个全局单例, 所以你可以在任意一个地方自定义它的样式:
+Since `QuickToast` is a global singleton, you can customize its style from any place:
 
 ```dart
 QuickToast.instance
@@ -188,19 +190,18 @@ QuickToast.instance
   ..customAnimation = CustomAnimation();
 ```
 
-更多的example可查看 👉 [flutter_quick_toast example](https://github.com/srcker/flutter_quick_toast/tree/main/example)
+For more examples, please check 👉 [flutter_quick_toast example](https://github.com/srcker/flutter_quick_toast/tree/main/example)
 
-
-## 更新日志
+## Changelog
 
 [CHANGELOG](./CHANGELOG.md)
 
-## 开源许可协议
+## Open Source License
 
 [MIT License](./LICENSE)
 
 ## ❤️❤️❤️
 
-感谢 [flutter_easyloading](https://github.com/nslogx/flutter_easyloading) ❤️
+Thanks to [flutter_easyloading](https://github.com/nslogx/flutter_easyloading) ❤️
 
-感谢 [JetBrains Open Source](https://www.jetbrains.com/community/opensource/#support) 提供支持
+Thanks to [JetBrains Open Source](https://www.jetbrains.com/community/opensource/#support) for support
