@@ -1,5 +1,5 @@
 # Flutter QuickToast
-> A Flutter APP development plugin that is implemented purely in Flutter and allows you to easily call the toast and loading functions without the need for context.
+> A lightweight Toast library for Flutter, which is implemented purely in Flutter and enables you to easily call the toast and loading functions without the need for context. 
 
 
 [![Pub Version](https://img.shields.io/pub/v/quick_toast)](https://pub.dev/packages/quick_toast)

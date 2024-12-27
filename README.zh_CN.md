@@ -1,5 +1,5 @@
 # Flutter QuickToast
-> A lightweight Toast library for Flutter, which is implemented purely in Flutter and enables you to easily call the toast and loading functions without the need for context. 
+> 一个 Flutter 轻量级的 Toast 库，纯 Flutter 实现、无需 context 即可轻松调用 toast 和 loading 功能。
 
 [![Pub Version](https://img.shields.io/pub/v/quick_toast)](https://pub.dev/packages/quick_toast)
 [![GitHub License](https://img.shields.io/github/license/srcker/flutter_quick_toast)](https://github.com/srcker/flutter_quick_toast)
